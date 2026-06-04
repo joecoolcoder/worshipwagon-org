@@ -49,7 +49,7 @@ a:hover {
 }
 
 .site-header {
-  padding: 34px 24px 26px;
+  padding: 8px 24px 14px;
   text-align: center;
 }
 
@@ -58,7 +58,7 @@ a:hover {
 }
 
 .logo img {
-  width: 220px;
+  width: 400px;
   height: auto;
 }
 
@@ -67,7 +67,7 @@ a:hover {
   flex-wrap: wrap;
   justify-content: center;
   gap: 0 28px;
-  margin-top: 22px;
+  margin-top: 12px;
   font-size: .85rem;
   letter-spacing: .18em;
   text-transform: uppercase;
@@ -125,6 +125,13 @@ a:hover {
   margin: 0 auto;
 }
 
+.container.feature-grid,
+.container.card-grid {
+  width: min(var(--max), calc(100% - 48px));
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .narrow {
   max-width: 820px;
 }
@@ -134,7 +141,7 @@ a:hover {
   grid-template-columns: 1.16fr .84fr;
   align-items: stretch;
   gap: 0;
-  margin-bottom: 70px;
+  margin-bottom: 42px;
 }
 
 .hero img {
@@ -164,33 +171,40 @@ h1,
 h2,
 h3,
 .display {
-  font-family: "Playfair Display", Georgia, serif;
-  font-weight: 400;
-  line-height: 1.12;
+  font-family: "Open Sans", Arial, sans-serif;
+  font-weight: 700;
+  line-height: 1.18;
 }
 
 h1,
 .display {
   margin: 0 0 28px;
-  font-size: clamp(2.35rem, 6vw, 4.65rem);
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  font-size: clamp(1.9rem, 4.2vw, 3.3rem);
+}
+
+.display {
+  letter-spacing: .04em;
 }
 
 h1.page-title {
-  margin: 30px 0 34px;
+  margin: 16px 0 24px;
   text-align: center;
   text-transform: uppercase;
-  letter-spacing: .05em;
-  font-size: clamp(2.1rem, 5vw, 3.6rem);
+  letter-spacing: .12em;
+  font-size: clamp(1.8rem, 3.8vw, 2.8rem);
 }
 
 h2 {
-  margin: 56px 0 18px;
-  font-size: 2.2rem;
+  margin: 28px 0 12px;
+  font-weight: 400;
+  font-size: 1.65rem;
 }
 
 h3 {
-  margin: 34px 0 12px;
-  font-size: 1.55rem;
+  margin: 24px 0 10px;
+  font-size: 1.3rem;
 }
 
 .button {
@@ -200,6 +214,7 @@ h3 {
   justify-content: center;
   padding: 0 38px;
   border: 0;
+  border-radius: 999px;
   color: #fff;
   background: var(--brown);
   text-decoration: none;
@@ -207,15 +222,19 @@ h3 {
   letter-spacing: .18em;
   font-weight: 700;
   font-size: .88rem;
+  box-shadow: 0 8px 18px rgba(83, 58, 48, .18);
+  transition: background-color .2s ease, transform .2s ease, box-shadow .2s ease;
 }
 
 .button:hover {
   color: #fff;
   background: var(--brown-dark);
+  box-shadow: 0 10px 22px rgba(83, 58, 48, .24);
+  transform: translateY(-1px);
 }
 
 .quote {
-  margin: 0 auto 60px;
+  margin: 0 auto 34px;
   color: #3d3b3a;
   text-align: center;
   text-transform: uppercase;
@@ -223,9 +242,22 @@ h3 {
   font-size: 1.05rem;
 }
 
+.quote.scripture-quote {
+  margin-bottom: 16px;
+}
+
+.scripture blockquote.quote.scripture-quote {
+  color: #3d3b3a;
+  text-transform: uppercase;
+  letter-spacing: .18em;
+  font-family: "Open Sans", Arial, sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
 .lead {
   max-width: 880px;
-  margin: 0 auto 58px;
+  margin: 0 auto 34px;
   font-size: 1.05rem;
 }
 
@@ -234,7 +266,7 @@ h3 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 42px;
-  margin: 54px 0;
+  margin: 34px 0;
 }
 
 .feature,
@@ -245,6 +277,13 @@ h3 {
 
 .feature {
   padding: 46px 32px 36px;
+}
+
+.feature h2 {
+  text-transform: none;
+  letter-spacing: .03em;
+  font-weight: 400;
+  font-size: 1.55rem;
 }
 
 .feature img {
@@ -260,16 +299,13 @@ h3 {
 }
 
 .scripture {
-  margin: 74px auto 48px;
+  margin: 44px auto 30px;
   max-width: 920px;
   text-align: center;
 }
 
 .scripture blockquote {
   margin: 0;
-  font-family: "Playfair Display", Georgia, serif;
-  font-size: clamp(1.7rem, 4vw, 2.7rem);
-  line-height: 1.2;
 }
 
 .rule {
@@ -281,9 +317,9 @@ h3 {
 .split {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 48px;
+  gap: 34px;
   align-items: center;
-  margin: 48px 0;
+  margin: 30px 0;
 }
 
 .split img {
@@ -291,11 +327,87 @@ h3 {
   height: auto;
 }
 
+.partner-logo-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  align-items: center;
+  margin: 26px 0 30px;
+}
+
+.partner-logo-card {
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+}
+
+.partner-logo-card > a:first-child {
+  display: flex;
+  min-height: 110px;
+  align-items: center;
+  justify-content: center;
+  padding: 22px;
+}
+
+.partner-logo-row img {
+  max-height: 90px;
+  width: auto;
+  object-fit: contain;
+}
+
+.partner-logo-card .button {
+  width: min(100%, 330px);
+}
+
+.partner-donate-button {
+  min-height: 76px;
+  flex-direction: column;
+  gap: 3px;
+  line-height: 1.15;
+}
+
+.partner-donate-button span,
+.partner-donate-button strong {
+  display: block;
+}
+
+.partner-donate-button strong {
+  font-size: 1.02em;
+}
+
+.story-trailer {
+  display: grid;
+  grid-template-columns: 1.25fr .75fr;
+  gap: 24px;
+  margin: 30px 0 0;
+}
+
+.story-trailer img {
+  display: block;
+  width: 100%;
+  height: 360px;
+  object-fit: cover;
+}
+
+.story-trailer img:first-child {
+  object-position: center;
+}
+
+.story-trailer img:last-child {
+  object-position: center;
+}
+
+.mission-float {
+  float: right;
+  width: min(230px, 30%);
+  margin: 0 0 22px 28px;
+}
+
 .location-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 40px;
-  margin-top: 40px;
+  gap: 28px;
+  margin-top: 24px;
 }
 
 .location-card,
@@ -303,7 +415,7 @@ h3 {
 .church-card,
 .video-card,
 .contact-card {
-  padding: 30px;
+  padding: 24px;
   background: var(--cream);
 }
 
@@ -316,8 +428,8 @@ h3 {
 .church-list {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
-  margin: 30px 0 54px;
+  gap: 18px;
+  margin: 20px 0 34px;
 }
 
 .church-card .week,
@@ -331,18 +443,41 @@ h3 {
 }
 
 .theme {
-  margin: 20px 0;
+  margin: 14px 0;
 }
 
 .theme h2 {
   margin: 0 0 12px;
 }
 
+.themes-saved-title {
+  margin: 16px 0 24px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  font-size: clamp(1.35rem, 2.6vw, 1.9rem);
+  font-weight: 700;
+}
+
+.themes-subtitle {
+  margin: -10px 0 24px;
+  color: var(--brown);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: .18em;
+  font-size: .95rem;
+  font-weight: 700;
+}
+
+.theme-accordion {
+  margin-left: 0;
+}
+
 .gallery {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 18px;
-  margin: 36px 0 70px;
+  margin: 24px 0 38px;
 }
 
 .gallery img {
@@ -354,8 +489,8 @@ h3 {
 .video-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 28px;
-  margin: 36px 0 60px;
+  gap: 22px;
+  margin: 24px 0 38px;
 }
 
 .video-frame {
@@ -365,8 +500,8 @@ h3 {
 }
 
 .site-footer {
-  margin-top: 80px;
-  padding: 36px 24px 48px;
+  margin-top: 42px;
+  padding: 24px 24px 32px;
   border-top: 1px solid var(--line);
   text-align: center;
   color: var(--muted);
@@ -385,8 +520,97 @@ li + li {
   margin-top: 6px;
 }
 
+.accordion {
+  margin-left: 28px;
+  border-top: 1px solid var(--line);
+}
+
+.accordion-first {
+  border-top: 0;
+}
+
+.accordion:last-of-type {
+  border-bottom: 1px solid var(--line);
+}
+
+.accordion-section-end {
+  border-bottom: 1px solid var(--line);
+}
+
+.accordion summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px 0;
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+.accordion summary::-webkit-details-marker {
+  display: none;
+}
+
+.accordion summary::after {
+  content: "+";
+  color: var(--brown);
+  font-size: 1.45rem;
+  line-height: 1;
+}
+
+.accordion[open] summary::after {
+  content: "-";
+}
+
+.accordion-content {
+  padding: 0 0 20px;
+}
+
+.accordion-content > :first-child {
+  margin-top: 0;
+}
+
+.accordion-content > :last-child {
+  margin-bottom: 0;
+}
+
+.formatted-section p {
+  margin: 0 0 26px;
+}
+
+.formatted-section ul {
+  margin: 0 0 28px;
+}
+
+.formatted-section li {
+  margin-top: 0;
+}
+
+.prayer-guidelines {
+  color: var(--muted);
+}
+
+.prayer-guidelines h3 {
+  margin-top: 28px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.prayer-guidelines ul {
+  font-style: italic;
+}
+
+.prayer-guidelines li {
+  margin-top: 2px;
+}
+
 @media (max-width: 900px) {
   .split,
+  .partner-logo-row,
+  .story-trailer,
   .location-grid,
   .church-list,
   .video-grid {
@@ -412,7 +636,11 @@ li + li {
 
 @media (max-width: 640px) {
   .site-header {
-    padding-top: 24px;
+    padding-top: 8px;
+  }
+
+  .logo img {
+    width: min(340px, 90vw);
   }
 
   .nav {
@@ -440,5 +668,12 @@ li + li {
 
   .gallery {
     grid-template-columns: 1fr;
+  }
+
+  .mission-float {
+    float: none;
+    display: block;
+    width: min(100%, 360px);
+    margin: 0 auto 22px;
   }
 }
