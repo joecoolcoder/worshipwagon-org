@@ -283,7 +283,7 @@ h3 {
   text-transform: none;
   letter-spacing: .03em;
   font-weight: 400;
-  font-size: 1.55rem;
+  font-size: 1.45rem;
 }
 
 .feature img {
@@ -419,10 +419,18 @@ h3 {
   background: var(--cream);
 }
 
+.location-note {
+  grid-column: 1 / -1;
+}
+
 .location-card h2,
 .church-card h3,
-.video-card h3 {
+.video-card h3,
+.contact-card h2 {
   margin-top: 0;
+  font-size: 1.45rem;
+  font-weight: 400;
+  letter-spacing: .03em;
 }
 
 .church-list {
