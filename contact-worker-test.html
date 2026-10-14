@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Contact Worker Test | Worship Wagon</title>
+  <link rel="stylesheet" href="styles.css?v=28">
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</head>
+<body>
+  <main class="container narrow">
+    <h1 class="page-title">Contact Worker Test</h1>
+    <section class="contact-card">
+      <p>This temporary page tests the new contact form service. The public Contact Us page still uses Formspree.</p>
+      <form class="contact-form" id="worker-test-form">
+        <div class="form-field"><label for="test-name">Name</label><input id="test-name" name="name" value="Worker Test" required></div>
+        <div class="form-field"><label for="test-email">Email</label><input id="test-email" name="email" type="email" value="test@example.com" required></div>
+        <div class="form-field"><label for="test-subject">How can we help?</label><select id="test-subject" name="subject" required><option value="Other">Other</option></select></div>
+        <div class="form-field"><label for="test-message">Message</label><textarea id="test-message" name="message" required>This is a test of the new contact Worker.</textarea></div>
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAAFWv_HzwFF4UEAsW"></div>
+        <button class="button" type="submit">Send Test</button>
+        <p id="test-status" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+  <script>
+    const form = document.getElementById("worker-test-form");
+    const status = document.getElementById("test-status");
+    form.addEventListener("submit", async event => {
+      event.preventDefault();
+      status.textContent = "Sending…";
+      const fields = new URLSearchParams(new FormData(form));
+      fields.set("site", "worshipwagon");
+      try {
+        const response = await fetch("https://my-contact-form.josephpratterman.workers.dev/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: fields
+        });
+        const result = await response.json();
+        status.textContent = response.ok && result.ok ? "Test message sent." : (result.error || "Test failed.");
+      } catch {
+        status.textContent = "Test failed to connect to the Worker.";
+      } finally {
+        if (window.turnstile) window.turnstile.reset();
+      }
+    });
+  </script>
+</body>
+</html>
