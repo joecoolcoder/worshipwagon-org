@@ -1,8 +1,8 @@
-const CACHE_NAME = "worship-wagon-music-player-v4";
+const CACHE_NAME = "worship-wagon-music-player-v5";
 const PLAYER_SHELL = [
   "./",
-  "player.js?v=2",
-  "../styles.css?v=30",
+  "player.js?v=3",
+  "../styles.css?v=31",
   "manifest.webmanifest",
   "../assets/img/WW-Logo-cropped.png",
   "../assets/img/ww-music-icon.svg"
