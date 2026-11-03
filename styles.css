@@ -614,19 +614,124 @@ h3 {
 .track-list {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0 28px;
+  gap: 12px;
   margin: 16px 0 0;
-  padding-left: 24px;
+  padding: 0;
+  list-style: none;
 }
 
 .track-list li {
-  padding: 9px 0;
-  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: stretch;
+  min-width: 0;
+  margin: 0;
+  border: 1px solid var(--line);
+  background: var(--cream);
+  transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+
+.track-list li:hover {
+  border-color: #b6a198;
+  box-shadow: 0 6px 14px rgba(83, 58, 48, .1);
+  transform: translateY(-1px);
+}
+
+.track-list li + li {
+  margin-top: 0;
+}
+
+.track-select {
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr);
+  flex: 1;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  padding: 12px;
+  border: 0;
+  color: var(--ink);
+  background: transparent;
+  font: inherit;
+  line-height: 1.25;
+  text-align: left;
+  cursor: pointer;
+}
+
+.track-select:focus-visible,
+.track-download:focus-visible {
+  outline: 3px solid rgba(116, 83, 69, .45);
+  outline-offset: -3px;
+}
+
+.track-order {
+  min-width: 2ch;
+  color: var(--muted);
+  font-size: .76rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+}
+
+.track-icon {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff;
+  background: var(--brown);
+  font-size: 1.1rem;
+}
+
+.track-text {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.track-title {
+  overflow: hidden;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.track-state {
+  color: var(--brown);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.track-download {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 1px;
+  width: 66px;
+  flex: 0 0 66px;
+  border-left: 1px solid var(--line);
+  color: var(--brown);
+  font-size: 1.15rem;
+  text-decoration: none;
+}
+
+.track-download:hover {
+  color: #fff;
+  background: var(--brown);
+}
+
+.download-label {
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
 }
 
 .track-list li.is-current {
-  color: var(--brown);
-  font-weight: 700;
+  border-color: var(--brown);
+  background: #f0e4df;
+  box-shadow: inset 4px 0 0 var(--brown);
 }
 
 .empty-library {

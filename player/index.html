@@ -10,8 +10,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles.css?v=29">
-  <script src="player.js?v=1" defer></script>
+  <link rel="stylesheet" href="../styles.css?v=30">
+  <script src="player.js?v=2" defer></script>
 </head>
 <body>
   <header class="site-header">
@@ -22,12 +22,12 @@
     <section class="music-player-card" aria-labelledby="now-playing-title">
       <div class="now-playing">
         <p class="player-label">Now Playing</p>
-        <h2 id="now-playing-title">Choose Play Shuffle to Begin</h2>
+        <h2 id="now-playing-title">Choose Shuffle to Begin</h2>
         <p id="player-detail" class="player-detail">Every song plays once before a fresh shuffle begins.</p>
       </div>
       <div class="player-controls" aria-label="Playback controls">
-        <button id="shuffle-button" class="button" type="button" disabled>Play Shuffle</button>
-        <button id="pause-button" class="button button-secondary" type="button" disabled>Pause</button>
+        <button id="play-pause-button" class="button" type="button" disabled>Play</button>
+        <button id="shuffle-button" class="button button-secondary" type="button" disabled>Shuffle</button>
         <button id="next-button" class="button button-secondary" type="button" disabled>Next Song</button>
       </div>
       <div class="player-progress">
@@ -39,7 +39,7 @@
     </section>
     <section class="music-library" aria-labelledby="library-title">
       <div class="library-heading">
-        <h2 id="library-title">Available Songs</h2>
+        <h2 id="library-title">Song Queue</h2>
         <p id="song-count">0 songs</p>
       </div>
       <ol id="track-list" class="track-list"></ol>
