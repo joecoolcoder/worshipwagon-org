@@ -5,7 +5,6 @@ const nextButton = document.querySelector("#next-button");
 const progressBar = document.querySelector("#progress-bar");
 const nowPlayingTitle = document.querySelector("#now-playing-title");
 const playerDetail = document.querySelector("#player-detail");
-const playerStatus = document.querySelector("#player-status");
 const timeDisplay = document.querySelector("#time-display");
 const songCount = document.querySelector("#song-count");
 const libraryTitle = document.querySelector("#library-title");
@@ -69,14 +68,10 @@ function playTrack(index) {
   audio.src = encodeURI(track.file);
   nowPlayingTitle.textContent = track.title;
   updatePlayerDetail();
-  playerStatus.textContent = `Playing ${track.title}.`;
   renderTrackList();
   updateControls();
 
-  audio.play().then(updateControls).catch(() => {
-    playerStatus.textContent = `Unable to play ${track.title}. Please try the next song.`;
-    updateControls();
-  });
+  audio.play().then(updateControls).catch(updateControls);
 }
 
 function playNextTrack() {
@@ -99,7 +94,6 @@ function startNewShuffle() {
   if (currentTrack) {
     currentIndex = tracks.findIndex((track) => track.file === currentTrack.file);
     updatePlayerDetail();
-    playerStatus.textContent = "Your playlist has been shuffled.";
     renderTrackList();
     updateControls();
     return;
@@ -111,9 +105,7 @@ function startNewShuffle() {
 function selectTrack(index) {
   if (index === currentIndex) {
     if (audio.paused) {
-      audio.play().catch(() => {
-        playerStatus.textContent = `Unable to play ${tracks[index].title}. Please try again.`;
-      });
+      audio.play().catch(updateControls);
     }
     return;
   }
@@ -189,14 +181,8 @@ async function loadLibrary() {
     emptyLibrary.hidden = tracks.length > 0;
     renderTrackList();
 
-    if (tracks.length) {
-      playerStatus.textContent = "Your shuffled playlist is ready to play.";
-    } else {
-      playerStatus.textContent = "The music library is not available yet.";
-    }
   } catch (error) {
     emptyLibrary.hidden = false;
-    playerStatus.textContent = "Unable to load the music library. Please try again later.";
   }
 
   updateControls();
@@ -211,9 +197,7 @@ playPauseButton.addEventListener("click", () => {
   }
 
   if (audio.paused) {
-    audio.play().catch(() => {
-      playerStatus.textContent = "Unable to resume this song. Please try again.";
-    });
+    audio.play().catch(updateControls);
   } else {
     audio.pause();
   }
@@ -246,9 +230,6 @@ audio.addEventListener("pause", () => {
   updateControls();
 });
 audio.addEventListener("ended", playNextTrack);
-audio.addEventListener("error", () => {
-  playerStatus.textContent = "This song could not be played. Choose Next Song to continue.";
-});
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => navigator.serviceWorker.register("service-worker.js"));
