@@ -1,3 +1,52 @@
 {
-  "tracks": []
+  "tracks": [
+    {
+      "title": "A Father's Prayer",
+      "file": "/assets/audio/tracks/A Father's Prayer.mp3"
+    },
+    {
+      "title": "By Faith",
+      "file": "/assets/audio/tracks/By Faith.mp3"
+    },
+    {
+      "title": "Freedom Fire Burn",
+      "file": "/assets/audio/tracks/Freedom-Fire Burn.mp3"
+    },
+    {
+      "title": "Give Them Away",
+      "file": "/assets/audio/tracks/Give Them Away.mp3"
+    },
+    {
+      "title": "Satan's Gonna Lose",
+      "file": "/assets/audio/tracks/Satan's Gonna Lose.mp3"
+    },
+    {
+      "title": "Sing to the Lord",
+      "file": "/assets/audio/tracks/Sing to the Lord.mp3"
+    },
+    {
+      "title": "Still Waters Rest",
+      "file": "/assets/audio/tracks/Still Waters Rest.mp3"
+    },
+    {
+      "title": "Stronger than the Grave",
+      "file": "/assets/audio/tracks/Stronger than the Grave.mp3"
+    },
+    {
+      "title": "Under Bridge Monday",
+      "file": "/assets/audio/tracks/Under Bridge Monday.mp3"
+    },
+    {
+      "title": "Where you would go",
+      "file": "/assets/audio/tracks/Where you would go.mp3"
+    },
+    {
+      "title": "Worship Wagon Shines",
+      "file": "/assets/audio/tracks/Worship Wagon Shines.mp3"
+    },
+    {
+      "title": "You Wrote to Me",
+      "file": "/assets/audio/tracks/You Wrote to Me.mp3"
+    }
+  ]
 }
