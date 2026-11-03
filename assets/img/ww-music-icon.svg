@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title id="title">Worship Wagon Music</title>
+  <rect width="512" height="512" rx="88" fill="#745345"/>
+  <path fill="#f8f2f1" d="M317 102v208.5a70 70 0 1 1-32-59V170l-116 29v164.5a70 70 0 1 1-32-59V174c0-14.6 9.9-27.4 24-30.9l132-33C306.1 106.8 317 116.7 317 102Zm-32 98-116 29v75.5a70 70 0 0 1 116 6V200Z"/>
+  <path fill="#f8f2f1" d="M394 270h-27v-27h-30v27h-27v30h27v27h30v-27h27z"/>
+</svg>

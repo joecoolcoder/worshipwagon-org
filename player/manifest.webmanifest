@@ -1,0 +1,16 @@
+{
+  "name": "Worship Wagon Music Player",
+  "short_name": "WW Music",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f8f2f1",
+  "theme_color": "#745345",
+  "icons": [
+    {
+      "src": "../assets/img/ww-music-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
