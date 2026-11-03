@@ -13,8 +13,7 @@ const trackList = document.querySelector("#track-list");
 const emptyLibrary = document.querySelector("#empty-library");
 
 let tracks = [];
-let shuffleBag = [];
-let currentTrack = null;
+let currentIndex = -1;
 
 function shuffle(items) {
   const shuffled = [...items];
@@ -41,28 +40,37 @@ function updateTimeDisplay() {
   timeDisplay.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
 }
 
-function updateTrackList() {
-  renderTrackList();
-}
-
 function updateControls() {
   const hasTracks = tracks.length > 0;
-  const hasCurrentTrack = Boolean(currentTrack);
+  const hasCurrentTrack = currentIndex >= 0;
   shuffleButton.disabled = !hasTracks;
   playPauseButton.disabled = !hasTracks;
   nextButton.disabled = !hasCurrentTrack;
   playPauseButton.textContent = audio.paused ? "Play" : "Pause";
 }
 
-function playTrack(track) {
-  currentTrack = track;
+function updatePlayerDetail() {
+  if (currentIndex < 0) {
+    playerDetail.textContent = "Use Shuffle to make a new listening order.";
+    return;
+  }
+
+  playerDetail.textContent = `Song ${currentIndex + 1} of ${tracks.length}. The playlist repeats in this order.`;
+}
+
+function playTrack(index) {
+  const track = tracks[index];
+
+  if (!track) {
+    return;
+  }
+
+  currentIndex = index;
   audio.src = encodeURI(track.file);
   nowPlayingTitle.textContent = track.title;
-  playerDetail.textContent = shuffleBag.length
-    ? `${shuffleBag.length} song${shuffleBag.length === 1 ? "" : "s"} left in this shuffle.`
-    : "This is the last song in this shuffle.";
+  updatePlayerDetail();
   playerStatus.textContent = `Playing ${track.title}.`;
-  updateTrackList();
+  renderTrackList();
   updateControls();
 
   audio.play().then(updateControls).catch(() => {
@@ -72,19 +80,12 @@ function playTrack(track) {
 }
 
 function playNextTrack() {
-  if (!shuffleBag.length) {
-    shuffleBag = shuffle(tracks);
-
-    if (currentTrack && shuffleBag.length > 1 && shuffleBag[0].file === currentTrack.file) {
-      [shuffleBag[0], shuffleBag[1]] = [shuffleBag[1], shuffleBag[0]];
-    }
+  if (!tracks.length) {
+    return;
   }
 
-  const nextTrack = shuffleBag.shift();
-
-  if (nextTrack) {
-    playTrack(nextTrack);
-  }
+  const nextIndex = currentIndex < 0 ? 0 : (currentIndex + 1) % tracks.length;
+  playTrack(nextIndex);
 }
 
 function startNewShuffle() {
@@ -92,49 +93,41 @@ function startNewShuffle() {
     return;
   }
 
-  shuffleBag = shuffle(tracks.filter((track) => track.file !== currentTrack?.file));
+  const currentTrack = tracks[currentIndex];
+  tracks = shuffle(tracks);
 
   if (currentTrack) {
-    playerDetail.textContent = `${shuffleBag.length} song${shuffleBag.length === 1 ? "" : "s"} left in this shuffle.`;
-    playerStatus.textContent = "Your song queue has been shuffled.";
-    updateTrackList();
+    currentIndex = tracks.findIndex((track) => track.file === currentTrack.file);
+    updatePlayerDetail();
+    playerStatus.textContent = "Your playlist has been shuffled.";
+    renderTrackList();
     updateControls();
-  } else {
-    playNextTrack();
+    return;
   }
+
+  playTrack(0);
 }
 
-function queueTracks() {
-  return currentTrack ? [currentTrack, ...shuffleBag] : tracks;
-}
-
-function selectTrack(track) {
-  if (track.file === currentTrack?.file) {
+function selectTrack(index) {
+  if (index === currentIndex) {
     if (audio.paused) {
       audio.play().catch(() => {
-        playerStatus.textContent = `Unable to play ${track.title}. Please try again.`;
+        playerStatus.textContent = `Unable to play ${tracks[index].title}. Please try again.`;
       });
     }
     return;
   }
 
-  const remainingTracks = shuffleBag.filter((queuedTrack) => queuedTrack.file !== track.file);
-  shuffleBag = remainingTracks.length
-    ? remainingTracks
-    : shuffle(tracks.filter((queuedTrack) => queuedTrack.file !== track.file));
-  playTrack(track);
+  playTrack(index);
 }
 
 function renderTrackList() {
   trackList.replaceChildren();
-  const queuedTracks = queueTracks();
-  const isShuffled = Boolean(currentTrack);
-  libraryTitle.textContent = isShuffled ? "Shuffle Queue" : "Available Songs";
+  libraryTitle.textContent = "Shuffled Playlist";
 
-  queuedTracks.forEach((track, index) => {
+  tracks.forEach((track, index) => {
     const item = document.createElement("li");
-    item.dataset.file = track.file;
-    const isCurrentTrack = track.file === currentTrack?.file;
+    const isCurrentTrack = index === currentIndex;
     item.className = `track-card${isCurrentTrack ? " is-current" : ""}`;
     item.toggleAttribute("aria-current", isCurrentTrack);
 
@@ -142,7 +135,7 @@ function renderTrackList() {
     selectButton.className = "track-select";
     selectButton.type = "button";
     selectButton.setAttribute("aria-label", `${isCurrentTrack ? "Now playing" : "Play"} ${track.title}`);
-    selectButton.addEventListener("click", () => selectTrack(track));
+    selectButton.addEventListener("click", () => selectTrack(index));
 
     const order = document.createElement("span");
     order.className = "track-order";
@@ -191,13 +184,13 @@ async function loadLibrary() {
     }
 
     const catalog = await response.json();
-    tracks = Array.isArray(catalog.tracks) ? catalog.tracks.filter((track) => track.title && track.file) : [];
+    tracks = shuffle(Array.isArray(catalog.tracks) ? catalog.tracks.filter((track) => track.title && track.file) : []);
     songCount.textContent = `${tracks.length} song${tracks.length === 1 ? "" : "s"}`;
     emptyLibrary.hidden = tracks.length > 0;
     renderTrackList();
 
     if (tracks.length) {
-      playerStatus.textContent = `${tracks.length} song${tracks.length === 1 ? " is" : "s are"} ready to play.`;
+      playerStatus.textContent = "Your shuffled playlist is ready to play.";
     } else {
       playerStatus.textContent = "The music library is not available yet.";
     }
@@ -212,8 +205,8 @@ async function loadLibrary() {
 shuffleButton.addEventListener("click", startNewShuffle);
 
 playPauseButton.addEventListener("click", () => {
-  if (!currentTrack) {
-    startNewShuffle();
+  if (currentIndex < 0) {
+    playTrack(0);
     return;
   }
 
@@ -245,11 +238,11 @@ audio.addEventListener("timeupdate", () => {
 });
 
 audio.addEventListener("play", () => {
-  updateTrackList();
+  renderTrackList();
   updateControls();
 });
 audio.addEventListener("pause", () => {
-  updateTrackList();
+  renderTrackList();
   updateControls();
 });
 audio.addEventListener("ended", playNextTrack);
